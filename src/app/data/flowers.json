@@ -1,0 +1,44 @@
+{
+  "flowers": [
+    {
+      "name": "blue",
+      "state": {
+        "healthy": "/flowers/blue_flower_0.png",
+        "sick": "/flowers/blue_flower_1.png",
+        "joever": "/flowers/blue_flower_2.png"
+      }
+    },
+    {
+      "name": "daffodil",
+      "state": {
+        "healthy": "/flowers/daffodil_0.png",
+        "sick": "/flowers/daffodil_1.png",
+        "joever": "/flowers/daffodil_2.png"
+      }
+    },
+    {
+      "name": "pink",
+      "state": {
+        "healthy": "/flowers/pink_0.png",
+        "sick": "/flowers/pink_1.png",
+        "joever": "/flowers/pink_2.png"
+      }
+    },
+    {
+      "name": "tulip",
+      "state": {
+        "healthy": "/flowers/tulip_0.png",
+        "sick": "/flowers/tulip_1.png",
+        "joever": "/flowers/tulip_2.png"
+      }
+    },
+    {
+      "name": "purple",
+      "state": {
+        "healthy": "/flowers/purple_0.png",
+        "sick": "/flowers/purple_1.png",
+        "joever": "/flowers/purple_2.png"
+      }
+    }
+  ]
+}
