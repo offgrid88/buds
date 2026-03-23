@@ -71,7 +71,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mx-auto flex flex-col gap-6 p-6">
+    <div className="mx-auto max-w-[80%] flex flex-col gap-6 p-6">
       <ul className="flex flex-row flex-wrap gap-4">
         {buds.map((bud, index) => (
           <li key={bud.id}>

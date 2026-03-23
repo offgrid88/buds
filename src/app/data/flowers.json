@@ -39,6 +39,14 @@
         "sick": "/flowers/purple_1.png",
         "joever": "/flowers/purple_2.png"
       }
+    },
+    {
+      "name": "daisy",
+      "state": {
+        "healthy": "/flowers/daisy_0.png",
+        "sick": "/flowers/daisy_1.png",
+        "joever": "/flowers/daisy_2.png"
+      }
     }
   ]
 }

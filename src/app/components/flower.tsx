@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import isMobile from "../hooks/is-mobile";
 
 export type BudDisplay = {
   id: string;
@@ -22,8 +23,6 @@ type FlowerProps = {
   swayDelay?: number;
 };
 
-const IMAGE_PX = 300;
-
 export default function Flower({
   bud,
   swayDuration = 4,
@@ -31,6 +30,7 @@ export default function Flower({
 }: FlowerProps) {
   const [selected, setSelected] = useState(false);
   const hue = hueFromId(bud.id);
+  const IMAGE_PX = isMobile() ? 50 : 300;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -61,7 +61,7 @@ export default function Flower({
             alt=""
             width={IMAGE_PX}
             height={IMAGE_PX}
-            className="block h-48 w-48 object-contain"
+            className="inline-block h-18 w-18 md:h-48 md:w-48 object-contain"
             style={
               selected
                 ? {
@@ -75,7 +75,7 @@ export default function Flower({
       <h2 className="text-center text-base font-semibold text-neutral-900">
         {bud.name}
       </h2>
-      <div className="flex w-full min-w-[10rem] max-w-[12rem] flex-col gap-1">
+      <div className="flex w-full min-w-[2rem] max-w-[6rem] flex-col gap-1">
         <div
           className="h-1.5 w-full overflow-hidden rounded-full bg-neutral-100"
           role="status"
