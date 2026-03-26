@@ -10,7 +10,9 @@ import {
   useRef,
   useState,
 } from "react";
+import { seeEveryDaysToYMW } from "../lib/bud-care";
 import flowersData from "../data/flowers.json";
+import type { BudDisplay } from "./flower";
 
 export type NewBudPayload = {
   name: string;
@@ -20,6 +22,10 @@ export type NewBudPayload = {
 
 type FlowerAddCardProps = {
   onAdd: (bud: NewBudPayload) => void;
+  editTarget?: BudDisplay | null;
+  onCloseEdit?: () => void;
+  onUpdate?: (id: string, bud: NewBudPayload) => void;
+  onDelete?: (id: string) => void;
 };
 
 type FlowerOption = (typeof flowersData.flowers)[number];
@@ -42,7 +48,13 @@ function clampMonths(n: number) {
   return Math.min(MONTHS_MAX, Math.max(0, Math.floor(Number.isFinite(n) ? n : 0)));
 }
 
-export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
+export default function FlowerAddCard({
+  onAdd,
+  editTarget = null,
+  onCloseEdit,
+  onUpdate,
+  onDelete,
+}: FlowerAddCardProps) {
   const panelId = useId();
   const yearsSliderId = `${panelId}-years-slider`;
   const weeksSliderId = `${panelId}-weeks-slider`;
@@ -113,7 +125,23 @@ export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
   const close = useCallback(() => {
     setIntervalAssist(null);
     setOpen(false);
-  }, []);
+    onCloseEdit?.();
+  }, [onCloseEdit]);
+
+  useEffect(() => {
+    if (!editTarget) return;
+    setName(editTarget.name);
+    const ymw = seeEveryDaysToYMW(editTarget.seeEveryDays);
+    setEveryYears(ymw.everyYears);
+    setEveryWeeks(ymw.everyWeeks);
+    setEveryMonths(ymw.everyMonths);
+    const match = flowersData.flowers.find(
+      (f) => f.state.healthy === editTarget.healthyImage,
+    );
+    setSelectedKey(match?.name ?? null);
+    setIntervalAssist(null);
+    setOpen(true);
+  }, [editTarget]);
 
   useEffect(() => {
     if (!open) return;
@@ -166,14 +194,19 @@ export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
     return () => ro.disconnect();
   }, [open, updateFlowerScrollFades, flowersData.flowers.length]);
 
-  const handleAdd = () => {
+  const handleSubmit = () => {
     const trimmed = name.trim();
     if (!trimmed || !selectedFlower) return;
-    onAdd({
+    const payload: NewBudPayload = {
       name: trimmed,
       seeEveryDays: Math.max(1, seeEveryDays),
       healthyImage: selectedFlower.state.healthy,
-    });
+    };
+    if (editTarget) {
+      onUpdate?.(editTarget.id, payload);
+    } else {
+      onAdd(payload);
+    }
     setName("");
     setEveryYears(0);
     setEveryWeeks(1);
@@ -216,14 +249,14 @@ export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
         <>
           {/* Overlay */}
           <div
-            className="fixed inset-0 z-40 bg-black/10"
+            className="fixed inset-0 z-40 bg-black/10 hover:cursor-pointer"
             aria-hidden
             onClick={close}
           />
           <div
             id={panelId}
             role="dialog"
-            aria-label="Add a bud"
+            aria-label={editTarget ? "Edit bud" : "Add a bud"}
             aria-modal="true"
             className="fixed top-1/2 left-1/2 z-50 max-h-[min(90vh,40rem)] w-[min(100vw-2rem,28rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-neutral-200 bg-white p-4 shadow-lg"
           >
@@ -262,7 +295,7 @@ export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
                         type="button"
                         aria-label="Previous flower"
                         onClick={() => scrollFlowerRow(-1)}
-                        className="absolute top-1/2 left-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200/90 bg-white/95 text-neutral-700 shadow-sm transition hover:bg-neutral-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+                        className="absolute top-1/2 left-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200/90 bg-white/95 text-neutral-700 shadow-sm transition hover:cursor-pointer hover:bg-neutral-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
                       >
                         <svg
                           viewBox="0 0 24 24"
@@ -277,7 +310,7 @@ export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
                         type="button"
                         aria-label="Next flower"
                         onClick={() => scrollFlowerRow(1)}
-                        className="absolute top-1/2 right-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200/90 bg-white/95 text-neutral-700 shadow-sm transition hover:bg-neutral-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+                        className="absolute top-1/2 right-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200/90 bg-white/95 text-neutral-700 shadow-sm transition hover:cursor-pointer hover:bg-neutral-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
                       >
                         <svg
                           viewBox="0 0 24 24"
@@ -501,11 +534,23 @@ export default function FlowerAddCard({ onAdd }: FlowerAddCardProps) {
               <button
                 type="button"
                 disabled={!canSubmit}
-                onClick={handleAdd}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition enabled:hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
+                onClick={handleSubmit}
+                className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition enabled:hover:cursor-pointer enabled:hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Add
+                {editTarget ? "Save" : "Add"}
               </button>
+              {editTarget ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onDelete?.(editTarget.id);
+                    close();
+                  }}
+                  className="rounded-md border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-800 transition hover:cursor-pointer hover:bg-rose-100"
+                >
+                  Delete friend
+                </button>
+              ) : null}
             </div>
           </div>
         </>

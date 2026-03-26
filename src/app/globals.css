@@ -21,9 +21,69 @@
 } */
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: linear-gradient(
+      to bottom,
+      rgba(214, 244, 214, 0.22) 0%,
+      rgba(214, 244, 214, 0) 12%,
+      rgba(214, 244, 214, 0) 88%,
+      rgba(214, 244, 214, 0.22) 100%
+    ),
+    url("/flowers/buds_bg.png");
+  background-repeat: repeat-y, repeat-y;
+  background-position: top center;
+  background-position: top center, top center;
+  /* Keep aspect ratio fixed and avoid cropping: scale tiles to fit viewport width. */
+  background-size: 100% auto, 100% auto;
   color: var(--foreground);
   font-family: var(--font-schoolbell), Roboto, sans-serif;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Single top fade for the header area only */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(214, 244, 214, 0.35) 0%,
+    rgba(214, 244, 214, 0) 100%
+  );
+}
+
+/* Single bottom fade (helps hide any seam near the viewport bottom). */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgba(214, 244, 214, 0.35) 0%,
+    rgba(214, 244, 214, 0) 100%
+  );
+}
+
+/* Ensure page content paints above the gradient overlay. */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+html {
+  /* Keep layout width stable when overlays affect page overflow. */
+  overflow-y: scroll;
 }
 
 @keyframes sway1 {
@@ -44,4 +104,19 @@ body {
   50% {
     transform: rotate(-3.5deg);
   }
+}
+
+@keyframes flower-care-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flower-care-popup-enter {
+  animation: flower-care-fade-in 0.22s ease-out forwards;
 }

@@ -1,14 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import isMobile from "../hooks/is-mobile";
+
+export type FertilizePlan = {
+  plannedDate: string;
+  note: string;
+};
 
 export type BudDisplay = {
   id: string;
   name: string;
   healthyImage: string;
   seeEveryDays: number;
+  /** 0–100 shown on the care bar */
+  health: number;
+  /** Local YYYY-MM-DD when health was last reconciled (decay applied or care gained). */
+  healthUpdatedAt: string;
+  /** YYYY-MM-DD of last in-person visit */
+  lastInPersonAt: string | null;
+  fertilizePlan: FertilizePlan | null;
+  /** YYYY-MM-DD when user last logged “chatted today” */
+  lastChattedTodayAt: string | null;
+  /** Monday week key when user last used “this week” water log */
+  lastWaterWeekStartKey: string | null;
 };
 
 function hueFromId(id: string): number {
@@ -21,21 +36,37 @@ type FlowerProps = {
   bud: BudDisplay;
   swayDuration?: number;
   swayDelay?: number;
+  careOpen?: boolean;
+  onOpenCare?: () => void;
+  onAnchorChange?: (el: HTMLDivElement | null) => void;
 };
 
 export default function Flower({
   bud,
   swayDuration = 4,
   swayDelay = 0,
+  careOpen = false,
+  onOpenCare,
+  onAnchorChange,
 }: FlowerProps) {
-  const [selected, setSelected] = useState(false);
   const hue = hueFromId(bud.id);
   const IMAGE_PX = isMobile() ? 50 : 300;
+  const selected = careOpen;
 
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className="relative cursor-pointer"
+        ref={onAnchorChange}
+        className="relative hover:cursor-pointer"
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpenCare?.();
+          }
+        }}
+        onClick={() => onOpenCare?.()}
         style={{
           transformOrigin: "bottom center",
           animationName: selected ? "none" : "sway1",
@@ -44,7 +75,6 @@ export default function Flower({
           animationDelay: `${swayDelay}s`,
           animationIterationCount: "infinite",
         }}
-        onClick={() => setSelected((s) => !s)}
       >
         <div
           style={{
@@ -79,11 +109,11 @@ export default function Flower({
         <div
           className="h-1.5 w-full overflow-hidden rounded-full bg-neutral-100"
           role="status"
-          aria-label={`Care rhythm: every ${bud.seeEveryDays} days`}
+          aria-label={`Health ${Math.round(bud.health)} percent. Connect every ${bud.seeEveryDays} days`}
         >
           <div
-            className="h-full rounded-full bg-emerald-500/90 transition-all"
-            style={{ width: "100%" }}
+            className="h-full rounded-full bg-emerald-500/90 transition-all duration-300"
+            style={{ width: `${Math.round(bud.health)}%` }}
           />
         </div>
         <p className="text-center text-xs text-neutral-500">
