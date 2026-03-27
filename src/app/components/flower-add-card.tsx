@@ -232,7 +232,7 @@ export default function FlowerAddCard({
             return next;
           })
         }
-        className="group flex aspect-square w-36 flex-col items-center justify-center gap-1 rounded-lg border-2 hover:cursor-pointer border-dashed border-neutral-300 bg-white text-neutral-600 transition hover:border-neutral-400 hover:bg-neutral-50 focus-visible:border-neutral-400 focus-visible:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+        className="group flex aspect-square w-36 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
       >
         <span
           className="text-2xl font-light opacity-50 transition group-hover:opacity-100 group-focus-visible:opacity-100"

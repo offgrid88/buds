@@ -22,14 +22,8 @@
 
 body {
   background-color: var(--background);
-  background-image: linear-gradient(
-      to bottom,
-      rgba(214, 244, 214, 0.22) 0%,
-      rgba(214, 244, 214, 0) 12%,
-      rgba(214, 244, 214, 0) 88%,
-      rgba(214, 244, 214, 0.22) 100%
-    ),
-    url("/flowers/buds_bg.png");
+  background-image:   linear-gradient(rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.48)),
+  url("/flowers/buds_bg.png");
   background-repeat: repeat-y, repeat-y;
   background-position: top center;
   background-position: top center, top center;
@@ -44,7 +38,7 @@ body {
 /* Single top fade for the header area only */
 body::before {
   content: "";
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -53,24 +47,7 @@ body::before {
   z-index: 0;
   background: linear-gradient(
     to bottom,
-    rgba(214, 244, 214, 0.35) 0%,
-    rgba(214, 244, 214, 0) 100%
-  );
-}
-
-/* Single bottom fade (helps hide any seam near the viewport bottom). */
-body::after {
-  content: "";
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 160px;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(
-    to top,
-    rgba(214, 244, 214, 0.35) 0%,
+    rgba(206, 235, 255, 0.813) 0%,
     rgba(214, 244, 214, 0) 100%
   );
 }

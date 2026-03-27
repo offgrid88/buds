@@ -50,7 +50,7 @@ export default function Flower({
   onAnchorChange,
 }: FlowerProps) {
   const hue = hueFromId(bud.id);
-  const IMAGE_PX = isMobile() ? 50 : 300;
+  const IMAGE_PX = isMobile() ? 100 : 600;
   const selected = careOpen;
 
   return (
@@ -91,7 +91,7 @@ export default function Flower({
             alt=""
             width={IMAGE_PX}
             height={IMAGE_PX}
-            className="inline-block h-18 w-18 md:h-48 md:w-48 object-contain"
+            className="inline-block h-22 w-22 md:h-56 md:w-56 object-contain"
             style={
               selected
                 ? {
