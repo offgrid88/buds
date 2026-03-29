@@ -13,7 +13,7 @@ import {
 import { seeEveryDaysToYMW } from "../lib/bud-care";
 import flowersData from "../data/flowers.json";
 import type { BudDisplay } from "./flower";
-
+import isMobile from "../hooks/is-mobile";
 export type NewBudPayload = {
   name: string;
   seeEveryDays: number;
@@ -92,7 +92,7 @@ export default function FlowerAddCard({
   const scrollFlowerRow = useCallback((direction: -1 | 1) => {
     const el = flowerScrollRef.current;
     if (!el) return;
-    const eps = 6;
+    const eps = 6; // epsilon for smooth scrolling
     const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
     if (maxScroll <= eps) return;
 
@@ -102,7 +102,10 @@ export default function FlowerAddCard({
     const gap = second
       ? second.offsetLeft - first.offsetLeft - first.offsetWidth
       : 12;
-    const step = first.offsetWidth + gap;
+    const cardsPerPage = window.matchMedia("(max-width: 640px)").matches
+      ? 1
+      : 2;
+    const step = (first.offsetWidth + gap) * cardsPerPage;
 
     if (direction === 1) {
       if (el.scrollLeft >= maxScroll - eps) return;
@@ -326,7 +329,7 @@ export default function FlowerAddCard({
                   <div
                     ref={flowerScrollRef}
                     onScroll={updateFlowerScrollFades}
-                    className={`flex w-full snap-x snap-mandatory gap-3 overflow-x-auto overflow-y-hidden py-1 pb-2 [scrollbar-color:rgb(212_212_212)_transparent] [scrollbar-width:thin] touch-pan-x [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-300 [&::-webkit-scrollbar-track]:bg-transparent ${flowerRowOverflow ? "px-11" : ""}`}
+                    className={`flex w-full snap-x snap-proximity gap-3 overflow-x-auto overflow-y-hidden py-1 pb-2 [scrollbar-color:rgb(212_212_212)_transparent] [scrollbar-width:thin] touch-pan-x [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-300 [&::-webkit-scrollbar-track]:bg-transparent ${flowerRowOverflow ? "px-14 [scroll-padding-inline:3.5rem]" : ""}`}
                   >
                     {flowersData.flowers.map((flower) => {
                       const isSelected = selectedKey === flower.name;
@@ -335,7 +338,7 @@ export default function FlowerAddCard({
                           key={flower.name}
                           type="button"
                           onClick={() => setSelectedKey(flower.name)}
-                          className={`aspect-square flex min-h-[7.5rem] w-[calc(100%/1.5)] shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-xl border-2 px-3 py-3 transition hover:cursor-pointer first:ml-[calc((100%-100%/1.5)/2)] last:mr-[calc((100%-100%/1.5)/2)] ${
+                          className={`aspect-square flex shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-xl border-2 px-3 py-3 transition hover:cursor-pointer ${
                             isSelected
                               ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/25"
                               : "border-neutral-200/80 bg-neutral-50 hover:border-neutral-300"
