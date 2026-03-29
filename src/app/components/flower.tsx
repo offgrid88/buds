@@ -91,7 +91,7 @@ export default function Flower({
             alt=""
             width={IMAGE_PX}
             height={IMAGE_PX}
-            className="inline-block h-22 w-22 md:h-56 md:w-56 object-contain"
+            className="inline-block h-22 w-22 md:h-48 md:w-48 object-contain"
             style={
               selected
                 ? {
@@ -102,7 +102,7 @@ export default function Flower({
           />
         </div>
       </div>
-      <h2 className="text-center text-base font-semibold text-neutral-900">
+      <h2 className="text-center text-base font-semibold">
         {bud.name}
       </h2>
       <div className="flex w-full min-w-[2rem] max-w-[6rem] flex-col gap-1">

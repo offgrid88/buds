@@ -219,7 +219,7 @@ export default function FlowerAddCard({
     name.trim().length > 0 && selectedFlower != null && seeEveryDays >= 1;
 
   return (
-    <div ref={rootRef} className="relative inline-flex">
+    <div ref={rootRef} className="relative">
       <button
         type="button"
         aria-expanded={open}
@@ -232,7 +232,7 @@ export default function FlowerAddCard({
             return next;
           })
         }
-        className="group flex aspect-square w-36 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+        className="group flex mt-8 aspect-square w-22 md:w-48 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
       >
         <span
           className="text-2xl font-light opacity-50 transition group-hover:opacity-100 group-focus-visible:opacity-100"

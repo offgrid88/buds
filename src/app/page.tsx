@@ -306,14 +306,16 @@ export default function Home() {
             ) : null}
           </li>
         ))}
+        <li className="relative flex flex-col">
+          <FlowerAddCard
+            onAdd={handleAdd}
+            editTarget={editTarget}
+            onCloseEdit={() => setEditTarget(null)}
+            onUpdate={handleUpdateBud}
+            onDelete={handleDeleteBud}
+          />
+        </li>
       </ul>
-      <FlowerAddCard
-        onAdd={handleAdd}
-        editTarget={editTarget}
-        onCloseEdit={() => setEditTarget(null)}
-        onUpdate={handleUpdateBud}
-        onDelete={handleDeleteBud}
-      />
     </div>
   );
 }
