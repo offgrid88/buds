@@ -156,8 +156,8 @@ export default function FlowerCarePopup({
       <h3 className="pr-10 font-bold text-neutral-900">{bud.name}</h3>
       <div className="flex w-full flex-col gap-1">
         <div className="flex items-baseline justify-between gap-2 pr-1">
-          <span className="text-sm text-neutral-500">Health</span>
-          <span className="text-sm font-medium tabular-nums text-neutral-700">
+          <span className="text-[1.05rem] text-neutral-500">Health</span>
+          <span className="text-[1.05rem] font-medium tabular-nums text-neutral-700">
             {healthPct}%
           </span>
         </div>
@@ -174,7 +174,7 @@ export default function FlowerCarePopup({
       </div>
 
       <div
-        className="mt-3 flex rounded-lg bg-neutral-100 p-0.5 text-lg"
+        className="mt-3 flex rounded-lg bg-neutral-100 p-0.5 text-[1.35rem]"
         role="tablist"
       >
         <button
@@ -206,7 +206,7 @@ export default function FlowerCarePopup({
       </div>
 
       {tab === "water" ? (
-        <div className="mt-3 flex flex-col gap-2 text-md" role="tabpanel">
+        <div className="mt-3 flex flex-col gap-2 text-[1.2rem]" role="tabpanel">
           <p className="text-neutral-600">
             Log virtual connection: small drops that keep the friendship from
             drying out.
@@ -218,7 +218,7 @@ export default function FlowerCarePopup({
             className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-left font-medium text-emerald-900 transition enabled:hover:cursor-pointer enabled:hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-45"
           >
             Chatted today
-            <span className="mt-0.5 block text-sm font-normal text-emerald-800/80">
+            <span className="mt-0.5 block text-[1.05rem] font-normal text-emerald-800/80">
               +{waterPoints.today} health
               {chattedToday ? " · already logged today" : ""}
             </span>
@@ -230,14 +230,14 @@ export default function FlowerCarePopup({
             className="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-left font-medium text-neutral-800 transition enabled:hover:cursor-pointer enabled:hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-45"
           >
             Connected this week
-            <span className="mt-0.5 block text-sm font-normal text-neutral-600">
+            <span className="mt-0.5 block text-[1.05rem] font-normal text-neutral-600">
               +{waterPoints.thisWeek} health
               {chattedThisWeek ? " · already logged this week" : ""}
             </span>
           </button>
         </div>
       ) : (
-        <div className="mt-3 flex flex-col gap-3 text-md" role="tabpanel">
+        <div className="mt-3 flex flex-col gap-3 text-[1.2rem]" role="tabpanel">
           <p className="text-neutral-600">
             The biggest health boost comes from seeing your bud in person. Plan a visit and mark when complete!
           </p>
@@ -263,14 +263,14 @@ export default function FlowerCarePopup({
                 <button
                   type="button"
                   onClick={onCompleteFertilize}
-                  className="rounded-md bg-emerald-600 px-2.5 py-1 text-sm font-medium text-white hover:cursor-pointer hover:bg-emerald-700"
+                  className="rounded-md bg-emerald-600 px-2.5 py-1 text-[1.05rem] font-medium text-white hover:cursor-pointer hover:bg-emerald-700"
                 >
                   We met — fertilize
                 </button>
                 <button
                   type="button"
                   onClick={onClearPlan}
-                  className="rounded-md border border-amber-200/80 px-2.5 py-1 text-sm font-medium text-amber-900 hover:cursor-pointer hover:bg-amber-100/80"
+                  className="rounded-md border border-amber-200/80 px-2.5 py-1 text-[1.05rem] font-medium text-amber-900 hover:cursor-pointer hover:bg-amber-100/80"
                 >
                   Clear plan
                 </button>
@@ -284,7 +284,7 @@ export default function FlowerCarePopup({
                   type="date"
                   value={planDate}
                   onChange={(e) => setPlanDate(e.target.value)}
-                  className="rounded-md border border-neutral-200 px-2 py-1.5 text-lg text-neutral-900 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
+                  className="rounded-md border border-neutral-200 px-2 py-1.5 text-[1.35rem] text-neutral-900 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
                 />
               </label>
               <label className="flex flex-col gap-1">
@@ -294,13 +294,13 @@ export default function FlowerCarePopup({
                   onChange={(e) => setPlanNote(e.target.value)}
                   rows={3}
                   placeholder="Coffee, walk, game night…"
-                  className="resize-none rounded-md border border-neutral-200 px-2 py-1.5 text-lg text-neutral-900 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
+                  className="resize-none rounded-md border border-neutral-200 px-2 py-1.5 text-[1.35rem] text-neutral-900 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
                 />
               </label>
               <button
                 type="button"
                 onClick={handleSavePlan}
-                className="rounded-md bg-neutral-900 px-3 py-2 text-lg font-medium text-white hover:cursor-pointer hover:bg-neutral-800"
+                className="rounded-md bg-neutral-900 px-3 py-2 text-[1.35rem] font-medium text-white hover:cursor-pointer hover:bg-neutral-800"
               >
                 Save plan
               </button>

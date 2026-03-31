@@ -273,10 +273,10 @@ export default function Home() {
   );
 
   return (
-    <div className="mx-auto max-w-[80%] flex flex-col gap-6 p-6">
-      <ul className="flex flex-row flex-wrap items-start justify-center gap-6">
+    <div className="mx-auto w-[90%] pl-0 sm:pl-[10%] md:pl-[5%] flex flex-col gap-6 p-6">
+      <ul className="mx-auto w-fit grid grid-cols-2 justify-items-start gap-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-start sm:gap-6">
         {buds.map((bud, index) => (
-          <li key={bud.id} className="relative flex flex-col items-center">
+          <li key={bud.id} className="relative flex flex-col">
             <Flower
               bud={bud}
               swayDelay={index * 0.15}

@@ -235,15 +235,15 @@ export default function FlowerAddCard({
             return next;
           })
         }
-        className="group flex mt-8 aspect-square w-22 md:w-48 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+        className="group flex mt-8 aspect-square w-[6.6rem] md:w-[14.4rem] flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
       >
         <span
-          className="text-3xl font-light opacity-50 transition group-hover:opacity-100 group-focus-visible:opacity-100"
+          className="text-4xl font-light opacity-50 transition group-hover:opacity-100 group-focus-visible:opacity-100"
           aria-hidden
         >
           +
         </span>
-        <span className="text-base opacity-50 transition group-hover:opacity-100 group-focus-visible:opacity-100">
+        <span className="text-[1.2rem] opacity-50 transition group-hover:opacity-100 group-focus-visible:opacity-100">
           add bud
         </span>
       </button>
@@ -276,7 +276,7 @@ export default function FlowerAddCard({
                 />
               </label>
               <div className="flex min-w-0 flex-col gap-2">
-                <span className="text-base font-medium text-neutral-800">
+                <span className="text-[1.2rem] font-medium text-neutral-800">
                   Flower type
                 </span>
                 <div className="relative min-w-0 w-full">
@@ -346,7 +346,7 @@ export default function FlowerAddCard({
                           aria-pressed={isSelected}
                           aria-label={`Select ${flower.name} flower`}
                         >
-                          <div className="relative h-32 w-32 shrink-0">
+                          <div className="relative h-[9.6rem] w-[9.6rem] shrink-0">
                             <Image
                               src={flower.state.healthy}
                               alt=""
@@ -520,7 +520,7 @@ export default function FlowerAddCard({
                     ) : null}
                   </div>
                 </div>
-                <p className="text-sm text-neutral-500">
+                <p className="text-[1.05rem] text-neutral-500">
                   About every{" "}
                   <span className="font-medium text-neutral-700">
                     {seeEveryDays}
@@ -538,7 +538,7 @@ export default function FlowerAddCard({
                 type="button"
                 disabled={!canSubmit}
                 onClick={handleSubmit}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-base font-medium text-white transition enabled:hover:cursor-pointer enabled:hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-md bg-emerald-600 px-4 py-2 text-[1.2rem] font-medium text-white transition enabled:hover:cursor-pointer enabled:hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {editTarget ? "Save" : "Add"}
               </button>
@@ -549,7 +549,7 @@ export default function FlowerAddCard({
                     onDelete?.(editTarget.id);
                     close();
                   }}
-                  className="rounded-md border border-rose-200 bg-rose-50 px-4 py-2 text-base font-medium text-rose-800 transition hover:cursor-pointer hover:bg-rose-100"
+                  className="rounded-md border border-rose-200 bg-rose-50 px-4 py-2 text-[1.2rem] font-medium text-rose-800 transition hover:cursor-pointer hover:bg-rose-100"
                 >
                   Delete friend
                 </button>

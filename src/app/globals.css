@@ -16,10 +16,11 @@
   --color-health-bar-sage: var(--health-bar-sage);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --text-heading-1: 2.25rem;
-  --text-heading-2: 2rem;
-  --text-heading-3: 1.25rem;
-  --text-base: 1.1rem;
+  /* 20% scale-up */
+  --text-heading-1: 2.7rem;
+  --text-heading-2: 2.4rem;
+  --text-heading-3: 1.5rem;
+  --text-base: 1.32rem;
 }
 
 @layer base {

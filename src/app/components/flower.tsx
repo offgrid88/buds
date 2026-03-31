@@ -77,7 +77,7 @@ export default function Flower({
   onOpenCare,
   onAnchorChange,
 }: FlowerProps) {
-  const IMAGE_PX = isMobile() ? 100 : 600;
+  const IMAGE_PX = isMobile() ? 120 : 600;
   const selected = careOpen;
   const [hovered, setHovered] = useState(false);
   const showHoverExtras = hovered && !careOpen;
@@ -135,18 +135,18 @@ export default function Flower({
             alt=""
             width={IMAGE_PX}
             height={IMAGE_PX}
-            className="inline-block h-22 w-22 md:h-48 md:w-48 object-contain"
+            className="inline-block h-[7.2rem] w-[7.2rem] md:h-[14.4rem] md:w-[14.4rem] object-contain"
             style={glowStyle}
           />
         </div>
       </div>
-      <h2 className="text-center text-lg font-semibold">
+      <h2 className="text-center text-[1.35rem] font-semibold">
         {bud.name}
       </h2>
-      <div className="flex w-full min-w-[2rem] max-w-[14rem] flex-col gap-1">
+      <div className="flex w-full min-w-[2rem] max-w-[10rem] flex-col gap-1">
         <div className="flex w-full items-center gap-1.5">
           <div
-            className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full border border-lg border-emerald-900 bg-neutral-100/90"
+            className="h-2 min-w-0 flex-1 overflow-hidden rounded-full border border-lg border-health-bar-sage bg-neutral-100/90"
             role="status"
             aria-label={`Health ${Math.round(bud.health)} percent. Connect every ${bud.seeEveryDays} days`}
           >
@@ -156,7 +156,7 @@ export default function Flower({
             />
           </div>
           <span
-            className={`shrink-0 tabular-nums text-xs font-medium text-emerald-900/90 ${
+            className={`shrink-0 tabular-nums text-[1.05rem] font-medium text-foreground ${
               showHoverExtras ? "" : "invisible"
             }`}
             aria-hidden={!showHoverExtras}
@@ -165,15 +165,17 @@ export default function Flower({
           </span>
         </div>
         {showHoverExtras && hoverLines.length > 0 ? (
-          <ul className="list-inside list-disc text-sm leading-snug text-neutral-600">
+          <ul className="list-inside list-disc text-[1.05rem] leading-snug text-neutral-600">
             {hoverLines.map((line, i) => (
               <li key={`${i}-${line.slice(0, 24)}`}>{line}</li>
             ))}
           </ul>
         ) : null}
-        {(!showHoverExtras || hoverLines.length === 0) && <p className="text-center text-sm text-neutral-500">
-          See every {bud.seeEveryDays} day{bud.seeEveryDays === 1 ? "" : "s"}
-        </p>}
+        {(!showHoverExtras || hoverLines.length === 0) && (
+          <p className="text-center text-[1.05rem] text-neutral-500">
+            See every {bud.seeEveryDays} day{bud.seeEveryDays === 1 ? "" : "s"}
+          </p>
+        )}
       </div>
     </div>
   );
