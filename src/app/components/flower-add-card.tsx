@@ -126,7 +126,12 @@ export default function FlowerAddCard({
   );
 
   const close = useCallback(() => {
+    setName("");
+    setEveryYears(0);
+    setEveryWeeks(1);
+    setEveryMonths(0);
     setIntervalAssist(null);
+    setSelectedKey(null);
     setOpen(false);
     onCloseEdit?.();
   }, [onCloseEdit]);
@@ -165,9 +170,9 @@ export default function FlowerAddCard({
     if (!open || intervalAssist === null) return;
     const onPointerDown = (e: PointerEvent) => {
       const t = e.target as Node;
-      if (yearsFieldRef.current?.contains(t)) return;
       if (weeksFieldRef.current?.contains(t)) return;
       if (monthsFieldRef.current?.contains(t)) return;
+      if (yearsFieldRef.current?.contains(t)) return;
       setIntervalAssist(null);
     };
     document.addEventListener("pointerdown", onPointerDown);
@@ -210,11 +215,6 @@ export default function FlowerAddCard({
     } else {
       onAdd(payload);
     }
-    setName("");
-    setEveryYears(0);
-    setEveryWeeks(1);
-    setEveryMonths(0);
-    setSelectedKey(null);
     close();
   };
 
@@ -228,13 +228,14 @@ export default function FlowerAddCard({
         aria-expanded={open}
         aria-controls={panelId}
         aria-label="Add bud"
-        onClick={() =>
-          setOpen((v) => {
-            const next = !v;
-            if (next) setIntervalAssist(null);
-            return next;
-          })
-        }
+        onClick={() => {
+          if (open) {
+            close();
+            return;
+          }
+          setIntervalAssist(null);
+          setOpen(true);
+        }}
         className="group flex mt-8 aspect-square w-[6.6rem] md:w-[14.4rem] flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
       >
         <span
@@ -366,57 +367,6 @@ export default function FlowerAddCard({
                   See every
                 </legend>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  <div ref={yearsFieldRef} className="flex min-w-0 flex-col gap-1">
-                    <label className="flex flex-col gap-1">
-                      <span className="text-neutral-600">Years</span>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        autoComplete="off"
-                        aria-expanded={intervalAssist === "years"}
-                        aria-controls={
-                          intervalAssist === "years"
-                            ? yearsSliderId
-                            : undefined
-                        }
-                        value={String(everyYears)}
-                        onClick={() => setIntervalAssist("years")}
-                        onFocus={() => setIntervalAssist("years")}
-                        onChange={(e) => {
-                          const digits = e.target.value.replace(/\D/g, "");
-                          if (digits === "") {
-                            setEveryYears(0);
-                            return;
-                          }
-                          setEveryYears(
-                            clampYears(Number.parseInt(digits, 10)),
-                          );
-                        }}
-                        onBlur={() => {
-                          setEveryYears((y) => clampYears(y));
-                        }}
-                        className="w-full min-w-0 rounded-md border border-neutral-200 px-2 py-2 tabular-nums text-neutral-900 outline-none ring-emerald-500/0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 sm:px-3"
-                      />
-                    </label>
-                    {intervalAssist === "years" ? (
-                      <input
-                        id={yearsSliderId}
-                        type="range"
-                        min={0}
-                        max={YEARS_MAX}
-                        step={1}
-                        value={everyYears}
-                        onChange={(e) =>
-                          setEveryYears(Number.parseInt(e.target.value, 10))
-                        }
-                        className="w-full accent-emerald-600"
-                        aria-valuemin={0}
-                        aria-valuemax={YEARS_MAX}
-                        aria-valuenow={everyYears}
-                        aria-label="Adjust years"
-                      />
-                    ) : null}
-                  </div>
                   <div ref={weeksFieldRef} className="flex min-w-0 flex-col gap-1">
                     <label className="flex flex-col gap-1">
                       <span className="text-neutral-600">Weeks</span>
@@ -519,6 +469,57 @@ export default function FlowerAddCard({
                       />
                     ) : null}
                   </div>
+                  <div ref={yearsFieldRef} className="flex min-w-0 flex-col gap-1">
+                    <label className="flex flex-col gap-1">
+                      <span className="text-neutral-600">Years</span>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        autoComplete="off"
+                        aria-expanded={intervalAssist === "years"}
+                        aria-controls={
+                          intervalAssist === "years"
+                            ? yearsSliderId
+                            : undefined
+                        }
+                        value={String(everyYears)}
+                        onClick={() => setIntervalAssist("years")}
+                        onFocus={() => setIntervalAssist("years")}
+                        onChange={(e) => {
+                          const digits = e.target.value.replace(/\D/g, "");
+                          if (digits === "") {
+                            setEveryYears(0);
+                            return;
+                          }
+                          setEveryYears(
+                            clampYears(Number.parseInt(digits, 10)),
+                          );
+                        }}
+                        onBlur={() => {
+                          setEveryYears((y) => clampYears(y));
+                        }}
+                        className="w-full min-w-0 rounded-md border border-neutral-200 px-2 py-2 tabular-nums text-neutral-900 outline-none ring-emerald-500/0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 sm:px-3"
+                      />
+                    </label>
+                    {intervalAssist === "years" ? (
+                      <input
+                        id={yearsSliderId}
+                        type="range"
+                        min={0}
+                        max={YEARS_MAX}
+                        step={1}
+                        value={everyYears}
+                        onChange={(e) =>
+                          setEveryYears(Number.parseInt(e.target.value, 10))
+                        }
+                        className="w-full accent-emerald-600"
+                        aria-valuemin={0}
+                        aria-valuemax={YEARS_MAX}
+                        aria-valuenow={everyYears}
+                        aria-label="Adjust years"
+                      />
+                    ) : null}
+                  </div>
                 </div>
                 <p className="text-[1.05rem] text-neutral-500">
                   About every{" "}
@@ -529,7 +530,7 @@ export default function FlowerAddCard({
                   {seeEveryDays < 1 ? (
                     <span className="text-amber-700">
                       {" "}
-                      — increase years, weeks, or months
+                      — increase weeks, months, or years
                     </span>
                   ) : null}
                 </p>
