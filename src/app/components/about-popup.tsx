@@ -72,12 +72,13 @@ export default function AboutPopup({ onClose }: AboutPopupProps) {
           Bud health decreases daily at a rate based on how often you want to see them! Text or plan a hangout to keep them healthy :) <br /> <br />
           Data is stored locally in your browser and can be exported or directly edited via JSON.
         </p>
-        <p className="mt-5 border-t border-neutral-100 pt-4 text-[1.2rem]">
+        <div className="mt-5 border-t border-neutral-100 pt-4 text-[1.2rem] flex flex-wrap gap-6">
           <a
             href="https://github.com/jen-jpeg/buds"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex gap-2 font-medium text-foreground hover:text-health-bar-sage transition hover:text-foreground"
+            className="inline-flex items-center gap-2 font-medium text-foreground transition hover:cursor-pointer hover:text-health-bar-sage"
+            aria-label="GitHub"
           >
             <svg
               viewBox="0 0 24 24"
@@ -93,6 +94,30 @@ export default function AboutPopup({ onClose }: AboutPopupProps) {
             </svg>
             GitHub
           </a>
+
+          <a
+            href="https://instagram.com/jen__jpeg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-medium text-foreground transition hover:cursor-pointer hover:text-health-bar-sage"
+            aria-label="Instagram"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-8 w-8 shrink-0"
+              fill="currentColor"
+              aria-hidden
+            >
+              <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z" />
+              <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+              <path d="M17.3 6.65a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z" />
+            </svg>
+            Instagram
+          </a>
+        </div>
+
+        <p className="mt-4 text-[1rem]">
+          built & illustrated with ✿ by jen-jpeg 𖤣.𖥧.𖡼.⚘
         </p>
       </div>
     </div>
