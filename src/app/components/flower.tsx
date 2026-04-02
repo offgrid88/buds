@@ -176,6 +176,8 @@ export default function Flower({
           animationTimingFunction: "ease-in-out",
           animationDelay: `${swayDelay}s`,
           animationIterationCount: "infinite",
+          // Apply first keyframe during delay so staggered sways don’t snap in sequence.
+          animationFillMode: "backwards",
         }}
       >
         <div
@@ -186,6 +188,7 @@ export default function Flower({
             animationTimingFunction: "ease-in-out",
             animationDelay: `${swayDelay + 0.5}s`,
             animationIterationCount: "infinite",
+            animationFillMode: "backwards",
           }}
         >
           <Image
