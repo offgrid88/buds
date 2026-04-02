@@ -89,22 +89,23 @@ export default function JsonEditorPopup({ onClose }: JsonEditorPopupProps) {
 
   return (
     <div
-      className="!fixed !inset-0 !z-50 flex items-center justify-center p-4"
+      className="!fixed !inset-0 !z-50 overflow-y-auto"
       role="presentation"
     >
       <button
         type="button"
         aria-label="Close JSON editor"
-        className="absolute inset-0 bg-neutral-900/35"
+        className="fixed inset-0 bg-neutral-900/35"
         onClick={onClose}
       />
-      <div
-        id={panelId}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={`${panelId}-title`}
-        className="flower-care-popup-enter relative z-10 w-full max-w-3xl rounded-xl border border-neutral-200 bg-white p-6 shadow-lg"
-      >
+      <div className="flex min-h-[100dvh] items-center justify-center p-4">
+        <div
+          id={panelId}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={`${panelId}-title`}
+          className="flower-care-popup-enter relative z-10 flex max-h-[calc(100dvh-2rem)] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white p-4 shadow-lg sm:max-h-[min(calc(100dvh-2rem),48rem)] sm:p-6"
+        >
         <button
           type="button"
           aria-label="Close"
@@ -121,22 +122,24 @@ export default function JsonEditorPopup({ onClose }: JsonEditorPopupProps) {
           </svg>
         </button>
 
-        <h2
-          id={`${panelId}-title`}
-          className="pr-10 text-[1.6rem] font-bold text-secondary-foreground"
-        >
-          edit session JSON
-        </h2>
+        <div className="shrink-0">
+          <h2
+            id={`${panelId}-title`}
+            className="pr-10 text-[1.35rem] font-bold text-secondary-foreground sm:text-[1.6rem]"
+          >
+            edit session JSON
+          </h2>
 
-        <p className="mt-2 text-[1.05rem] text-neutral-600">
-          This edits the locally stored data for this browser session. Use to quickly edit or export your data.
-        </p>
+          <p className="mt-2 text-[0.95rem] text-neutral-600 sm:text-[1.05rem]">
+            This edits the locally stored data for this browser session. Use to quickly edit or export your data.
+          </p>
 
-        <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[1.05rem] text-red-700">
-          note: not recommended to alter the "id" or "healthyImage" fields
+          <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-1.5 text-[0.95rem] text-red-700 sm:px-3 sm:py-2 sm:text-[1.05rem]">
+            note: not recommended to alter the "id" or "healthyImage" fields
+          </div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-3 flex min-h-0 flex-1 flex-col sm:mt-4">
           <textarea
             value={text}
             onChange={(e) => {
@@ -144,14 +147,14 @@ export default function JsonEditorPopup({ onClose }: JsonEditorPopupProps) {
               setError(null);
             }}
             spellCheck={false}
-            className="h-[52vh] w-full resize-none rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 font-mono text-[0.95rem] leading-5 text-neutral-900 outline-none focus:border-emerald-500/40 focus:ring-2 focus:ring-emerald-500/20"
+            className="min-h-0 w-full min-w-0 flex-1 resize-none rounded-lg border border-neutral-200 bg-neutral-50 px-2.5 py-2 font-mono text-[0.85rem] leading-5 text-neutral-900 outline-none focus:border-emerald-500/40 focus:ring-2 focus:ring-emerald-500/20 max-sm:min-h-[52vh] sm:min-h-[45vh] sm:px-3 sm:text-[0.95rem]"
           />
           {error ? (
-            <p className="mt-2 text-[1rem] text-red-600">{error}</p>
+            <p className="mt-2 shrink-0 text-[0.95rem] text-red-600 sm:text-[1rem]">{error}</p>
           ) : null}
         </div>
 
-        <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-4 flex shrink-0 flex-col-reverse gap-2 sm:mt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
           <div className="flex gap-3">
             <button
               type="button"
@@ -176,6 +179,7 @@ export default function JsonEditorPopup({ onClose }: JsonEditorPopupProps) {
           >
             export .txt
           </button>
+        </div>
         </div>
       </div>
     </div>

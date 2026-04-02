@@ -27,22 +27,23 @@ export default function AboutPopup({ onClose }: AboutPopupProps) {
 
   return (
     <div
-      className="!fixed !inset-0 !z-50 flex items-center justify-center p-4"
+      className="!fixed !inset-0 !z-50 overflow-y-auto"
       role="presentation"
     >
       <button
         type="button"
         aria-label="Close about"
-        className="absolute inset-0 bg-neutral-900/35"
+        className="fixed inset-0 bg-neutral-900/35"
         onClick={onClose}
       />
-      <div
-        id={panelId}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={`${panelId}-title`}
-        className="flower-care-popup-enter relative z-10 w-full max-w-md rounded-xl border border-neutral-200 bg-white p-6 shadow-lg"
-      >
+      <div className="flex min-h-[100dvh] items-center justify-center p-4">
+        <div
+          id={panelId}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={`${panelId}-title`}
+          className="flower-care-popup-enter relative z-10 max-h-[calc(100dvh-1.5rem)] w-full max-w-md overflow-y-auto rounded-xl border border-neutral-200 bg-white p-4 shadow-lg sm:max-h-[min(calc(100dvh-2rem),40rem)] sm:p-6"
+        >
         <button
           type="button"
           aria-label="Close"
@@ -61,18 +62,18 @@ export default function AboutPopup({ onClose }: AboutPopupProps) {
 
         <h2
           id={`${panelId}-title`}
-          className="pr-10 text-[1.6rem] font-bold text-secondary-foreground"
+          className="pr-10 text-[1.35rem] font-bold leading-snug text-secondary-foreground sm:text-[1.6rem]"
         >
           .✦ ݁˖ what is buds? ⋆˚✿˖°
         </h2>
-        <p className="mt-3 text-[1.2rem] leading-snug text-foreground font-pangolin">
+        <p className="mt-3 text-[1.05rem] leading-snug text-foreground font-pangolin sm:text-[1.2rem]">
           Just like flowers, friendships need care to stay healthy! <br /> <br />
           Buds is a simple friendship health tracker that lets you plant your <i>buddies</i> as flower <i>buds</i>  :p 
           <br /> <br />
           Bud health decreases daily at a rate based on how often you want to see them! Text or plan a hangout to keep them healthy 🌱 <br /> <br />
           Data is stored locally in your browser and can be exported or directly edited via JSON.
         </p>
-        <div className="mt-5 border-t border-neutral-100 pt-4 text-[1.2rem] flex flex-wrap gap-6">
+        <div className="mt-5 border-t border-neutral-100 pt-4 text-[1.05rem] flex flex-wrap gap-4 sm:gap-6 sm:text-[1.2rem]">
           <a
             href="https://github.com/jen-jpeg/buds"
             target="_blank"
@@ -116,9 +117,10 @@ export default function AboutPopup({ onClose }: AboutPopupProps) {
           </a>
         </div>
 
-        <p className="mt-4 text-[1rem]">
+        <p className="mt-4 text-[0.95rem] sm:text-[1rem]">
           built & illustrated with ✿ by jen-jpeg 𖤣.𖥧.𖡼.⚘
         </p>
+        </div>
       </div>
     </div>
   );

@@ -151,7 +151,7 @@ export default function FlowerCarePopup({
       id={panelId}
       role="dialog"
       aria-label={`Care for ${bud.name}`}
-      className={`flower-care-popup-enter fixed z-30 w-[min(100vw-1rem,20rem)] rounded-xl border border-neutral-200 bg-white p-3 shadow-lg ${position.ready ? "opacity-100" : "opacity-0"}`}
+      className={`flower-care-popup-enter fixed z-30 w-[min(100vw-1.5rem,18rem)] rounded-xl border border-neutral-200 bg-white p-2.5 shadow-lg sm:w-[min(100vw-1rem,20rem)] sm:p-3 ${position.ready ? "opacity-100" : "opacity-0"}`}
       style={{ top: `${position.top}px`, left: `${position.left}px` }}
     >
       <div className="absolute top-2 right-2 flex gap-1">
@@ -175,11 +175,13 @@ export default function FlowerCarePopup({
         </button>
       </div>
 
-      <h3 className="pr-10 font-bold text-secondary-foreground">{bud.name}</h3>
+      <h3 className="pr-10 text-[1.05rem] font-bold leading-tight text-secondary-foreground sm:text-base">
+        {bud.name}
+      </h3>
       <div className="flex w-full flex-col gap-1">
         <div className="flex items-baseline justify-between gap-2 pr-1">
-          <span className="text-[1.05rem] text-neutral-500">Health</span>
-          <span className="text-[1.05rem] font-medium tabular-nums text-neutral-700">
+          <span className="text-[0.95rem] text-neutral-500 sm:text-[1.05rem]">Health</span>
+          <span className="text-[0.95rem] font-medium tabular-nums text-neutral-700 sm:text-[1.05rem]">
             {healthPct}%
           </span>
         </div>
@@ -196,14 +198,14 @@ export default function FlowerCarePopup({
       </div>
 
       <div
-        className="mt-3 flex rounded-lg bg-neutral-100 p-0.5 text-[1.35rem]"
+        className="mt-2.5 flex rounded-lg bg-neutral-100 p-0.5 text-[1.1rem] sm:mt-3 sm:text-[1.35rem]"
         role="tablist"
       >
         <button
           type="button"
           role="tab"
           aria-selected={tab === "water"}
-          className={`flex-1 rounded-md px-2 py-1.5 font-medium transition hover:cursor-pointer ${
+          className={`flex-1 rounded-md px-1.5 py-1 text-[1.05rem] font-medium transition hover:cursor-pointer sm:px-2 sm:py-1.5 sm:text-[1.35rem] ${
             tab === "water"
               ? "bg-white text-neutral-900 shadow-sm"
               : "text-neutral-600 hover:text-neutral-900"
@@ -216,7 +218,7 @@ export default function FlowerCarePopup({
           type="button"
           role="tab"
           aria-selected={tab === "fertilize"}
-          className={`flex-1 rounded-md px-2 py-1.5 font-medium transition hover:cursor-pointer ${
+          className={`flex-1 rounded-md px-1.5 py-1 text-[1.05rem] font-medium transition hover:cursor-pointer sm:px-2 sm:py-1.5 sm:text-[1.35rem] ${
             tab === "fertilize"
               ? "bg-white text-neutral-900 shadow-sm"
               : "text-neutral-600 hover:text-neutral-900"
@@ -228,11 +230,11 @@ export default function FlowerCarePopup({
       </div>
 
       {tab === "water" ? (
-        <div className="mt-3 flex flex-col gap-2 text-[1.2rem]" role="tabpanel">
-          <p className="text-neutral-500 text-[1rem] font-pangolin">
+        <div className="mt-2.5 flex flex-col gap-1.5 text-[1.05rem] sm:mt-3 sm:gap-2 sm:text-[1.2rem]" role="tabpanel">
+          <p className="text-neutral-500 text-[0.9rem] font-pangolin sm:text-[1rem]">
             Small drops of connection keep the friendship from drying out!
           </p>
-          <p className="text-[1rem] text-neutral-500">
+          <p className="text-[0.9rem] text-neutral-500 sm:text-[1rem]">
             Last chatted:{" "}
             <span className="font-medium text-neutral-700">
               {lastChattedLabel}
@@ -242,18 +244,18 @@ export default function FlowerCarePopup({
             type="button"
             disabled={chattedThisWeek}
             onClick={onWaterToday}
-            className="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-left font-medium text-blue-900 transition enabled:hover:cursor-pointer enabled:hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-45"
+            className="rounded-md border border-blue-200 bg-blue-50 px-2.5 py-1.5 text-left text-[0.95rem] font-medium text-blue-900 transition enabled:hover:cursor-pointer enabled:hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-45 sm:px-3 sm:py-2 sm:text-base"
           >
             Chatted this week
-            <span className="mt-0.5 block text-[1.05rem] font-normal text-blue-800/80">
+            <span className="mt-0.5 block text-[0.9rem] font-normal text-blue-800/80 sm:text-[1.05rem]">
               +{waterPoints.thisWeek} health
               {chattedThisWeek ? " · already logged this week" : ""}
             </span>
           </button>
         </div>
       ) : (
-        <div className="mt-3 flex flex-col gap-3 text-[1rem] text-neutral-500" role="tabpanel">
-          <p className="font-pangolin font-size-[1.2rem]">
+        <div className="mt-2.5 flex flex-col gap-2 text-[0.95rem] text-neutral-500 sm:mt-3 sm:gap-3 sm:text-[1rem]" role="tabpanel">
+          <p className="font-pangolin text-[0.95rem] sm:text-[1.2rem]">
             The biggest health boost comes from seeing your bud in person. Plan a visit and mark when complete!
           </p>
           <p className="text-neutral-500">
