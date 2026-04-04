@@ -240,6 +240,8 @@ export default function FlowerAddCard({
             return;
           }
           setIntervalAssist(null);
+          const first = flowersData.flowers[0];
+          setSelectedKey(first?.name ?? null);
           setOpen(true);
         }}
         className="group flex mt-8 aspect-square w-[6.6rem] md:w-[14.4rem] flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-neutral-400 bg-none text-neutral-800 transition hover:cursor-pointer hover:border-neutral-700 hover:bg-white/50 focus-visible:border-neutral-700 focus-visible:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
